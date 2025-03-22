@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "One time 1 GB",
+    "shortDescription": "Let's choose between our data packages. This is a special offer just for you!",
+    "description": "1GB 30-day once-off prepaid data bundle. This option is ideal if you don’t exceed your bundle often and want to take advantage of the lower in-bundle rates. You can buy as many once-off bundles as you wish."
+  },
+  {
+    "id": "2",
+    "name": "One time 300 MB",
+    "shortDescription": "Let's choose between our data packages.",
+    "description": "300MB 30-day once-off prepaid data bundle. This is perfect for light users who occasionally need extra data. The once-off purchase ensures you’re never left without data."
+  },
+  {
+    "id": "3",
+    "name": "One time 500 MB",
+    "shortDescription": "Let's choose between our data packages.",
+    "description": "500MB 30-day once-off prepaid data bundle. Ideal for users who need a bit more data but don’t want to commit to a larger plan. It provides a flexible and affordable data option."
+  },
+  {
+    "id": "4",
+    "name": "One time 100 MB",
+    "shortDescription": "",
+    "description": "100MB 30-day once-off prepaid data bundle. Perfect for light users who only need a small data amount for browsing and checking emails. A great way to top up without large commitments."
+  },
+  {
+    "id": "5",
+    "name": "One time 200 MB",
+    "shortDescription": "Let's choose between our data packages.",
+    "description": "200MB 30-day once-off prepaid data bundle. A good choice for moderate data users who need enough data for light streaming, browsing, and social media. It’s flexible and cost-effective."
+  }
+]
