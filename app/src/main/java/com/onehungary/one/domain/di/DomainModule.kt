@@ -3,6 +3,7 @@ package com.onehungary.one.domain.di
 import android.content.Context
 import com.onehungary.one.api.services.details.DetailsDataSource
 import com.onehungary.one.api.services.offers.OffersDataSource
+import com.onehungary.one.domain.AuthenticationStorage
 import com.onehungary.one.domain.DetailsAndOffersRepository
 import dagger.Module
 import dagger.Provides
@@ -24,6 +25,14 @@ class DomainModule {
             offersDataSource = offersDataSource,
             detailsDataSource = detailsDataSource
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthenticationStorage(
+        context: Context
+    ): AuthenticationStorage {
+        return AuthenticationStorage(context)
     }
 
 }
