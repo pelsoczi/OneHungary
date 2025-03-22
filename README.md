@@ -192,7 +192,7 @@ _______________________________________________________
 
 - The project must be an Phone-only project (tablet support is not necessary) and should support api level 23 and up.
 - The provided Figma design must be the baseline for sizes, colors, etc. Please use the default font instead of the one in the design. The dimensions must still be the
-  same as shown there. The icon for the arrow image can be exported from the project. Próba feladat – Figma
+  same as shown there. The icon for the arrow image can be exported from the project. [Próba feladat](https://www.figma.com/design/twfhfvNzPsD6BUKbHoGtWR/Pr%C3%B3ba-feladat-Android?node-id=0-1&p=f&t=C0LmTUS5Pwrrfmdd-0) – Figma
 - Please mock the application by using the provided .json files or create a public API that returns the same files and uses those (eg. https://www.jsonkeeper.com/).
 - Please use MVVM architecture.
 - For API calls please use Retrofit: https://square.github.io/retrofit/
