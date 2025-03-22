@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
     kotlin("kapt")
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -36,6 +37,10 @@ android {
     }
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     // region: core
     implementation(libs.core.kotlin)
@@ -48,9 +53,26 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     // endregion
+    // region: network
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logger)
+    implementation(libs.retrofit)
+    implementation(libs.retrofitGson)
+    // endregion
+    // region: data
+    implementation(libs.data.dataStore)
+    implementation(libs.gson)
+    // endregion
+    // region: DI
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+    // endregion
     // region: test
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation(libs.test.junit)
+    testImplementation(libs.test.mockk)
+    testImplementation(libs.test.truth)
+    testImplementation(libs.test.coroutines)
+    testImplementation(libs.test.turbine)
+    testImplementation(libs.test.okhttp.mockwebserver)
     // endregion
 }
