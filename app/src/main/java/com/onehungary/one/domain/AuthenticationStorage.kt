@@ -5,7 +5,9 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -26,7 +28,11 @@ class AuthenticationStorage @Inject constructor(
         }
     }
 
-    val isSessionAuthenticated: Flow<Boolean> = context.dataStore.data
-        .map { preferences -> preferences[SESSION_KEY] ?: false }
+    val isSessionAuthenticated = runBlocking {
+        context.dataStore.data
+            .map { preferences ->
+                preferences[SESSION_KEY] ?: false
+            }.first()
+    }
 
 }

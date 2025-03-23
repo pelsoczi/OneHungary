@@ -43,7 +43,6 @@ class NetworkModule {
     @Singleton
     fun provideRetrofitClient(
         okHttpClient: OkHttpClient,
-        context: Context,
         gson: Gson
     ): Retrofit {
         return Retrofit.Builder()
