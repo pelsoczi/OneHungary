@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">OneHungary</string>
+    <string name="title_login">Login</string>
+    <string name="login_button_login_label">Login</string>
+    <string name="login_button_guest_label">Continue as guest</string>
 </resources>
