@@ -9,6 +9,17 @@
         android:id="@+id/navigation_login"
         android:name="com.onehungary.one.ui.login.LoginFragment"
         android:label="@string/title_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/onLoginClick"
+            app:destination="@+id/navigation_offers"
+            app:enterAnim="@anim/slide_in_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_offers"
+        android:name="com.onehungary.one.ui.offers.OffersListFragment"
+        android:label="@string/title_offers"
+        tools:layout="@layout/fragment_offers" />
 
 </navigation>

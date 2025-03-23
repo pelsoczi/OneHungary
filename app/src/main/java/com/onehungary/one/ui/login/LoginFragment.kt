@@ -60,7 +60,9 @@ class LoginFragment: Fragment() {
     }
 
     private fun navigateToOffers(state: LoginViewState.Authenticated) {
-        // findNavController()
+        findNavController().navigate(
+            LoginFragmentDirections.onLoginClick()
+        )
     }
 
     override fun onDestroyView() {
