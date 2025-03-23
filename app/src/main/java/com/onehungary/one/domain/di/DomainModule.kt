@@ -8,6 +8,7 @@ import com.onehungary.one.domain.DetailsAndOffersRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -30,7 +31,7 @@ class DomainModule {
     @Provides
     @Singleton
     fun provideAuthenticationStorage(
-        context: Context
+        @ApplicationContext context: Context
     ): AuthenticationStorage {
         return AuthenticationStorage(context)
     }
