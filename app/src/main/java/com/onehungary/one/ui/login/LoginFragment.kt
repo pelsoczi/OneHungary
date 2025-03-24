@@ -52,11 +52,15 @@ class LoginFragment: Fragment() {
                 viewModel.viewState.collect {
                     when (it) {
                         is LoginViewState.Authenticated -> navigateToOffers(it)
-                        is LoginViewState.LoginScreen -> {}
+                        is LoginViewState.LoginScreen -> removeAuthentication()
                     }
                 }
             }
         }
+    }
+
+    private fun removeAuthentication() {
+        viewModel.handle(LoginViewAction.RemoveAuthentication)
     }
 
     private fun navigateToOffers(state: LoginViewState.Authenticated) {

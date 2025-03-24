@@ -30,10 +30,8 @@ class DomainModule {
 
     @Provides
     @Singleton
-    fun provideAuthenticationStorage(
-        @ApplicationContext context: Context
-    ): AuthenticationStorage {
-        return AuthenticationStorage(context)
+    fun provideAuthenticationStorage(): AuthenticationStorage {
+        return AuthenticationStorage()
     }
 
 }

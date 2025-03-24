@@ -3,6 +3,7 @@ package com.onehungary.one.ui.login
 import app.cash.turbine.test
 import com.google.common.truth.Truth
 import com.onehungary.one.domain.usecase.LoginUserUseCase
+import com.onehungary.one.domain.usecase.RemoveLoginUseCase
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +20,7 @@ class LoginViewModelTest {
     private val testDispatcher = StandardTestDispatcher()
 
     private val loginUserUseCase = mockk<LoginUserUseCase>()
+    private val removeLoginUseCase = mockk<RemoveLoginUseCase>()
 
     lateinit var viewModel: LoginViewModel
 
@@ -26,6 +28,7 @@ class LoginViewModelTest {
     fun setUp() {
         viewModel = LoginViewModel(
             loginUserUseCase = loginUserUseCase,
+            removeLoginUseCase = removeLoginUseCase,
             dispatcher = testDispatcher,
         )
         Dispatchers.setMain(testDispatcher)

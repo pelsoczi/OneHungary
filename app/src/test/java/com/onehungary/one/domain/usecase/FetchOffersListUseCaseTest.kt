@@ -12,7 +12,6 @@ import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import kotlin.random.Random
 
 class FetchOffersListUseCaseTest {
 
@@ -35,6 +34,7 @@ class FetchOffersListUseCaseTest {
         val offer = mockk<OffersEntity>()
         val offersList = DomainResult.domainSuccess(listOf(offer))
         coEvery { offersRepository.offersListing() } returns offersList
+        coEvery { authenticationStorage.isSessionAuthenticated } returns true
         // when
         useCase.invoke().test {
             // then
@@ -43,7 +43,6 @@ class FetchOffersListUseCaseTest {
             }
             awaitComplete()
         }
-        coVerify(exactly = 1) { authenticationStorage.saveSession(any()) }
         coVerify(exactly = 1) { offersRepository.offersListing() }
     }
 

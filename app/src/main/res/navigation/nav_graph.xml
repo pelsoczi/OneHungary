@@ -13,7 +13,9 @@
         <action
             android:id="@+id/onLoginClick"
             app:destination="@+id/navigation_offers"
-            app:enterAnim="@anim/slide_in_right" />
+            app:enterAnim="@anim/slide_in_right"
+            app:popUpTo="@+id/navigation_login"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

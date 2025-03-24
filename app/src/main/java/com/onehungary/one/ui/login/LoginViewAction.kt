@@ -6,4 +6,6 @@ sealed class LoginViewAction {
 
     object LoginGuest : LoginViewAction()
 
+    object RemoveAuthentication : LoginViewAction()
+
 }

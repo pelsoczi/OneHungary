@@ -26,8 +26,10 @@ class FetchOffersListUseCase @Inject constructor(
     private fun handleDomainEntity(
         items: DomainResult.Success<List<OffersEntity>>
     ): List<OffersEntity> {
-        val hasSession = authenticationStorage.isSessionAuthenticated
-        return sortedGroupOffersList(items.data, hasSession)
+        authenticationStorage.isSessionAuthenticated?.let { hasSession ->
+            return sortedGroupOffersList(items.data, hasSession)
+        }
+        return emptyList()
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
