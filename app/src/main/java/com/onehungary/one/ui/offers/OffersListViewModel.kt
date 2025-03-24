@@ -41,7 +41,7 @@ class OffersListViewModel @Inject constructor(
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    private fun partitionOffersList(entities: List<OffersEntity>): OffersListViewState {
+    fun partitionOffersList(entities: List<OffersEntity>): OffersListViewState {
         if (entities.isEmpty()) return OffersListViewState.TryAgainLater
 
         val partition = entities.partition { it.isSpecial }
