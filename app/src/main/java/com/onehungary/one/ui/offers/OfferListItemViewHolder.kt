@@ -29,13 +29,16 @@ sealed class OfferListItemViewHolder(
 
     class OfferItemViewHolder(
         private val binding: ItemOfferBinding,
-        onOfferClick: (OfferListItem.OfferItem) -> Unit
+        private val onOfferClick: (OfferListItem.OfferItem) -> Unit
     ) : OfferListItemViewHolder(binding.root) {
 
         override fun bind(item: OfferListItem) {
             item as OfferListItem.OfferItem
             binding.offerItemTitle.text = item.entity.name
             binding.offerItemDescription.text = item.entity.shortDescription
+            itemView.setOnClickListener {
+                onOfferClick.invoke(item)
+            }
         }
     }
 }

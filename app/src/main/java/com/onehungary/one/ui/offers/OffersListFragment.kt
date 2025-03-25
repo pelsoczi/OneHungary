@@ -34,7 +34,9 @@ class OffersListFragment : Fragment() {
     private val viewModel by viewModels<OffersListViewModel>()
 
     private val onOfferClick: (OfferListItem.OfferItem) -> Unit = {
-        // find nav controller
+        findNavController().navigate(
+            OffersListFragmentDirections.onDetailClick(it.entity.id.toInt())
+        )
     }
 
     private val adapter by lazy { OffersAdapter(onOfferClick) }

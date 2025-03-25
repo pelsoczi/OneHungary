@@ -22,6 +22,21 @@
         android:id="@+id/navigation_offers"
         android:name="com.onehungary.one.ui.offers.OffersListFragment"
         android:label="@string/title_offers"
-        tools:layout="@layout/fragment_offers" />
+        tools:layout="@layout/fragment_offers">
+        <action
+            android:id="@+id/onDetailClick"
+            app:destination="@+id/navigation_detail"
+            app:enterAnim="@anim/slide_in_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="com.onehungary.one.ui.details.OfferDetailsFragment"
+        android:label="@string/title_offer_detail"
+        tools:layout="@layout/fragment_offer_details" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>
