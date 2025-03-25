@@ -20,7 +20,7 @@ import org.junit.Test
 class OfferDetailsViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
-    private val savedState = SavedStateHandle(mapOf("id" to 1))
+    private val savedState = SavedStateHandle(mapOf("id" to 1, "special" to true))
 
     private val fetchDetailsUseCase = mockk<FetchDetailsUseCase>()
 

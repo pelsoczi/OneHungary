@@ -78,6 +78,9 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
     // endregion
+    // region: libraries
+    implementation(libs.glide)
+    // endregion
     // region: test
     testImplementation(libs.test.junit)
     testImplementation(libs.test.mockk)

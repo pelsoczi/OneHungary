@@ -8,7 +8,8 @@ sealed class OfferDetailsViewState {
     object Empty : OfferDetailsViewState()
 
     data class OfferDetail(
-        val entity: DetailsEntity
+        val entity: DetailsEntity,
+        val isSpecial: Boolean
     ) : OfferDetailsViewState()
 
     object NetworkError : OfferDetailsViewState()

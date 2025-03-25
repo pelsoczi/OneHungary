@@ -35,7 +35,7 @@ class OffersListFragment : Fragment() {
 
     private val onOfferClick: (OfferListItem.OfferItem) -> Unit = {
         findNavController().navigate(
-            OffersListFragmentDirections.onDetailClick(it.entity.id.toInt())
+            OffersListFragmentDirections.onDetailClick(it.entity.id.toInt(), it.entity.isSpecial)
         )
     }
 

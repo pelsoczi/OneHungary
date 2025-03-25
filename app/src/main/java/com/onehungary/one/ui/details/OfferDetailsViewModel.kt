@@ -33,7 +33,10 @@ class OfferDetailsViewModel @Inject constructor(
         try {
             val detail = fetchDetailsUseCase.invoke(id).first()
             _viewState.emit(
-                OfferDetailsViewState.OfferDetail(detail)
+                OfferDetailsViewState.OfferDetail(
+                    detail,
+                    OfferDetailsFragmentArgs.fromSavedStateHandle(savedState).special
+                )
             )
         } catch (e: Exception) {
             when (e) {
