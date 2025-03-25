@@ -2,14 +2,21 @@ package com.onehungary.one.ui.offers
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.onehungary.one.R
 import com.onehungary.one.databinding.FragmentOffersBinding
@@ -44,6 +51,27 @@ class OffersListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val supportActionBar = (activity as? AppCompatActivity)?.supportActionBar
+        supportActionBar?.let {
+            it.show()
+            it.setDisplayHomeAsUpEnabled(false)
+        }
+
+        requireActivity().addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.menu_toolbar, menu)
+                }
+
+                override fun onMenuItemSelected(item: MenuItem): Boolean {
+                    return when (item.itemId) {
+                        R.id.action_logout -> doLogout()
+                        else -> false
+                    }
+                }
+            }, viewLifecycleOwner
+        )
+
         binding.offersRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.offersRecyclerView.adapter = adapter
         binding.apply {
@@ -62,6 +90,11 @@ class OffersListFragment : Fragment() {
         }
     }
 
+    private fun doLogout(): Boolean {
+        viewModel.handle(OffersListViewAction.Logout)
+        return true
+    }
+
     private fun observeViewModel() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -73,12 +106,26 @@ class OffersListFragment : Fragment() {
     }
 
     private fun setViewState(offerViewState: OffersListViewState) {
+        if (offerViewState is Logout) {
+            val navController = findNavController()
+            navController.popBackStack()
+            navController.navigate(
+                resId = R.id.navigation_login,
+                args = null,
+                navOptions = NavOptions.Builder()
+                    .setPopUpTo(R.id.navigation_login, true)
+                    .build()
+            )
+            return
+        }
+
         when (offerViewState) {
             is Empty -> null
             is Loading -> null
             is NetworkError -> null
             is TryAgainLater -> null
             is Offers -> offerViewState.entities
+            is Logout -> null
         }?.let { adapter.submitList(it) }
 
         when (offerViewState) {
@@ -87,6 +134,7 @@ class OffersListFragment : Fragment() {
             is NetworkError -> false
             is TryAgainLater -> false
             is Offers -> false
+            is Logout -> true
         }.let { binding.swipeRefresh.isRefreshing = it }
 
         when (offerViewState) {
@@ -95,6 +143,7 @@ class OffersListFragment : Fragment() {
             is NetworkError -> getString(R.string.check_internet)
             is TryAgainLater -> getString(R.string.try_again)
             is Offers -> ""
+            is Logout -> ""
         }.let {
             binding.shade.isVisible = it.isNotEmpty()
             binding.displayMessage.isVisible = it.isNotEmpty()

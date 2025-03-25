@@ -3,7 +3,9 @@ package com.onehungary.one.ui.offers
 import app.cash.turbine.test
 import com.onehungary.one.domain.model.OffersEntity
 import com.onehungary.one.domain.usecase.FetchOffersListUseCase
+import com.onehungary.one.domain.usecase.RemoveLoginUseCase
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOf
@@ -21,6 +23,7 @@ class OffersListViewModelTest {
     private val testDispatcher = StandardTestDispatcher()
 
     private val offersListUseCase = mockk<FetchOffersListUseCase>()
+    private val removeLoginUseCase = mockk<RemoveLoginUseCase>()
 
     lateinit var viewModel: OffersListViewModel
 
@@ -28,6 +31,7 @@ class OffersListViewModelTest {
     fun setUp() {
         viewModel = OffersListViewModel(
             fetchOffersListUseCase = offersListUseCase,
+            removeLoginUseCase = removeLoginUseCase,
             dispatcher = testDispatcher,
         )
         Dispatchers.setMain(testDispatcher)
@@ -151,6 +155,24 @@ class OffersListViewModelTest {
         state = viewModel.partitionOffersList(emptyList)
         // and then
         assert(state is OffersListViewState.TryAgainLater)
+    }
+
+    @Test
+    fun `handle logout action`() = runTest {
+        // given
+//        val list = listOf(mockk<OffersEntity>())
+//        coEvery { offersListUseCase.invoke() } returns flowOf(list)
+        val action = OffersListViewAction.Logout
+        // when
+        viewModel.viewState.test {
+            viewModel.handle(action)
+            // then
+            skipItems(1)
+            awaitItem().let {
+                assert(it is OffersListViewState.Logout)
+            }
+        }
+        coVerify(exactly = 1) { removeLoginUseCase.invoke() }
     }
 
 }

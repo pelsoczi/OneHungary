@@ -14,4 +14,6 @@ sealed class OffersListViewState {
 
     object NetworkError : OffersListViewState()
 
+    object Logout : OffersListViewState()
+
 }

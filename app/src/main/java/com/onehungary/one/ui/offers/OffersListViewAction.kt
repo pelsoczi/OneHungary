@@ -4,4 +4,6 @@ sealed class OffersListViewAction {
 
     object Refresh : OffersListViewAction()
 
+    object Logout : OffersListViewAction()
+
 }

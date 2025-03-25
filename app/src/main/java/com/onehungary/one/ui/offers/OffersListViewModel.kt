@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.onehungary.one.domain.model.OffersEntity
 import com.onehungary.one.domain.usecase.FetchOffersListUseCase
+import com.onehungary.one.domain.usecase.LoginUserUseCase
+import com.onehungary.one.domain.usecase.RemoveLoginUseCase
 import com.onehungary.one.ui.offers.OfferListItemTitles.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class OffersListViewModel @Inject constructor(
     private val fetchOffersListUseCase: FetchOffersListUseCase,
+    private val removeLoginUseCase: RemoveLoginUseCase,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : ViewModel() {
 
@@ -27,6 +30,7 @@ class OffersListViewModel @Inject constructor(
 
     fun handle(action: OffersListViewAction) = when (action) {
         OffersListViewAction.Refresh -> fetchOffersList()
+        OffersListViewAction.Logout -> handleLogout()
     }
 
     private fun fetchOffersList() = viewModelScope.launch(dispatcher) {
@@ -57,6 +61,11 @@ class OffersListViewModel @Inject constructor(
         }
 
         return OffersListViewState.Offers(list)
+    }
+
+    private fun handleLogout() = viewModelScope.launch(dispatcher) {
+        removeLoginUseCase.invoke()
+        _viewState.emit(OffersListViewState.Logout)
     }
 
 }
