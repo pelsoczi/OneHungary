@@ -1,54 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F5F5F5"
-    android:layout_marginTop="56dp">
+<layout xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <data>
+        <import type="com.onehungary.one.ui.offers.OffersListViewState"/>
+        <variable name="viewState" type="OffersListViewState"/>
+    </data>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/offers_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/shade"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white" />
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="#F5F5F5"
+        android:layout_marginTop="56dp">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/display_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="128dp"
-        android:gravity="center"
-        android:text="Message displayed here"
-        android:textColor="@color/md_theme_light_onBackground"
-        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:swipeRefreshState="@{viewState}">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/error_refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:paddingHorizontal="64dp"
-        android:paddingVertical="16dp"
-        android:text="Try Again"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/display_message" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/offers_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                app:offerList="@{viewState}" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/shade"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:shadeVisibility="@{viewState}" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/display_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="128dp"
+            android:gravity="center"
+            tools:text="Message displayed here"
+            android:textColor="@color/md_theme_light_onBackground"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:displayMessageText="@{viewState}" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/error_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:paddingHorizontal="64dp"
+            android:paddingVertical="16dp"
+            android:text="Try Again"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/display_message"
+            app:errorRefreshVisibility="@{viewState}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

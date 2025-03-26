@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -108,6 +107,8 @@ class OffersListFragment : Fragment() {
     }
 
     private fun setViewState(offerViewState: OffersListViewState) {
+        binding.viewState = offerViewState
+
         if (offerViewState is Logout) {
             val navController = findNavController()
             navController.popBackStack()
@@ -119,38 +120,6 @@ class OffersListFragment : Fragment() {
                     .build()
             )
             return
-        }
-
-        when (offerViewState) {
-            is Empty -> null
-            is Loading -> null
-            is NetworkError -> null
-            is TryAgainLater -> null
-            is Offers -> offerViewState.entities
-            is Logout -> null
-        }?.let { adapter.submitList(it) }
-
-        when (offerViewState) {
-            is Empty -> true
-            is Loading -> true
-            is NetworkError -> false
-            is TryAgainLater -> false
-            is Offers -> false
-            is Logout -> true
-        }.let { binding.swipeRefresh.isRefreshing = it }
-
-        when (offerViewState) {
-            is Empty -> ""
-            is Loading -> ""
-            is NetworkError -> getString(R.string.check_internet)
-            is TryAgainLater -> getString(R.string.try_again)
-            is Offers -> ""
-            is Logout -> ""
-        }.let {
-            binding.shade.isVisible = it.isNotEmpty()
-            binding.displayMessage.isVisible = it.isNotEmpty()
-            binding.displayMessage.text = it
-            binding.errorRefresh.isVisible = it.isNotEmpty()
         }
     }
 

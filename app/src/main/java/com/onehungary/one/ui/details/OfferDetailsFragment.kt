@@ -5,14 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.bumptech.glide.Glide
-import com.onehungary.one.R
 import com.onehungary.one.databinding.FragmentOfferDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -68,53 +65,7 @@ class OfferDetailsFragment : Fragment() {
     }
 
     private fun setViewState(detailViewState: OfferDetailsViewState) {
-        when (detailViewState) {
-            is OfferDetailsViewState.Empty -> ""
-            is OfferDetailsViewState.OfferDetail -> detailViewState.entity.name
-            is OfferDetailsViewState.TryAgainLater -> ""
-            is OfferDetailsViewState.NetworkError -> ""
-        }.let { binding.detailsTitle.text = it }
-
-        when (detailViewState) {
-            is OfferDetailsViewState.Empty -> ""
-            is OfferDetailsViewState.OfferDetail -> detailViewState.entity.shortDescription
-            is OfferDetailsViewState.TryAgainLater -> ""
-            is OfferDetailsViewState.NetworkError -> ""
-        }.let { binding.detailsShortDescription.text = it }
-
-        when (detailViewState) {
-            is OfferDetailsViewState.Empty -> ""
-            is OfferDetailsViewState.OfferDetail -> detailViewState.entity.description
-            is OfferDetailsViewState.TryAgainLater -> ""
-            is OfferDetailsViewState.NetworkError -> ""
-        }.let { binding.detailsDescription.text = it }
-
-        when (detailViewState) {
-            is OfferDetailsViewState.Empty -> null
-            is OfferDetailsViewState.OfferDetail -> detailViewState.isSpecial
-            is OfferDetailsViewState.TryAgainLater -> null
-            is OfferDetailsViewState.NetworkError -> null
-        }.let {
-            binding.detailsSpecialImage.isVisible = it != null && it
-            it?.let { special ->
-                if (special) Glide.with(requireView())
-                    .load(requireContext().getString(R.string.spcial_image_url))
-                    .fitCenter()
-                    .into(binding.detailsSpecialImage)
-            }
-        }
-
-        when (detailViewState) {
-            is OfferDetailsViewState.Empty -> ""
-            is OfferDetailsViewState.OfferDetail -> ""
-            is OfferDetailsViewState.TryAgainLater -> getString(R.string.try_again)
-            is OfferDetailsViewState.NetworkError -> getString(R.string.check_internet)
-        }.let {
-            binding.shade.isVisible = it.isNotEmpty()
-            binding.displayMessage.isVisible = it.isNotEmpty()
-            binding.displayMessage.text = it
-            binding.errorRefresh.isVisible = it.isNotEmpty()
-        }
+        binding.viewState = detailViewState
     }
 
     override fun onDestroyView() {
