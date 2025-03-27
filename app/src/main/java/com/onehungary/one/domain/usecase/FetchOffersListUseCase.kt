@@ -39,11 +39,17 @@ class FetchOffersListUseCase @Inject constructor(
                 .sortedByDescending { it.isSpecial }
                 .partition { it.isSpecial }
 
-            val specials = data.first.sortedBy { it.id.toInt() }
-            if (hasSession) addAll(specials)
+            val specials = data.first.sortedBy { it.rank }
+            val specialsRanked = specials.partition { it.rank != null }
+            if (hasSession) {
+                addAll(specialsRanked.first)
+                addAll(specialsRanked.second.sortedBy { it.id.toInt() })
+            }
 
-            val offers = data.second.sortedBy { it.id.toInt() }
-            addAll(offers)
+            val offers = data.second.sortedBy { it.rank }
+            val offersRanked = offers.partition { it.rank != null }
+            addAll(offersRanked.first)
+            addAll(offersRanked.second.sortedBy { it.id.toInt() })
         }
     }
 

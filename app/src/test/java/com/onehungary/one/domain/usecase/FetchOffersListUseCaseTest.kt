@@ -93,10 +93,10 @@ class FetchOffersListUseCaseTest {
         val list = useCase.sortedGroupOffersList(offersList, true)
 
         //then
-        // the order will always return to "one two four five three"
+        // the order will always return to "two one four five three"
         list.let {
-            Truth.assertThat(it[0] == one)
-            Truth.assertThat(it[1] == two)
+            Truth.assertThat(it[0] == two)
+            Truth.assertThat(it[1] == one)
             Truth.assertThat(it[2] == four)
             Truth.assertThat(it[3] == five)
             Truth.assertThat(it[4] == three)
